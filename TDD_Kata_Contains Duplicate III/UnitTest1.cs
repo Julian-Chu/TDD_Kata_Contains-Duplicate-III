@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Linq;
 
 namespace TDD_Kata_Contains_Duplicate_III
 {
@@ -64,20 +65,18 @@ namespace TDD_Kata_Contains_Duplicate_III
     {
         internal static bool ContainsNearbyAlmostDuplicate(int[] nums, int k, int t)
         {
-            if (k == 0) return false;
-            else
+            if (k > 0)
             {
-                for (int i = 0; i < nums.Length-1; i++)
+                for (int i = 0; i < nums.Length - 1; i++)
                 {
-                    int searchLength = k > nums.Length -1 ? nums.Length -1 : k;
-                    for (int j = i+1; j <= searchLength; j++)
-                    {
-                        if (nums[i] - nums[j] == 0)
-                            return true;
-                    }
+                    int searchLength = k > nums.Length - 1 ? nums.Length - 1 : k;
+                    if (nums.Skip(i + 1).Take(searchLength).Any(element => Math.Abs(element - nums[i]) <= t))
+                        return true;
                 }
                 return false;
             }
+            else return false;
+
             throw new NotImplementedException();
         }
     }

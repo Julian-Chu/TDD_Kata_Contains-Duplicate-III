@@ -1,5 +1,5 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Linq;
 
 namespace TDD_Kata_Contains_Duplicate_III
@@ -11,11 +11,11 @@ namespace TDD_Kata_Contains_Duplicate_III
         public void ContainsNearbyAlmostDuplicate_Given_kIsZero_Return_false()
         {
             //Assign
-            int[] nums = {1,2 };
+            int[] nums = { 1, 2 };
             int t = 0;
             int k = 0;
             //Act
-            bool actual=Solutions.ContainsNearbyAlmostDuplicate(nums, k, t);
+            bool actual = Solutions.ContainsNearbyAlmostDuplicate(nums, k, t);
 
             //Assert
             Assert.IsFalse(actual);
@@ -72,7 +72,7 @@ namespace TDD_Kata_Contains_Duplicate_III
             //Assert
             Assert.IsTrue(actual);
         }
-         
+
         [TestMethod]
         public void ContainsNearByAlmostDuplicate_Given_nums_0_2_4_2_kIs2_tIs0_Return_true()
         {
@@ -90,7 +90,7 @@ namespace TDD_Kata_Contains_Duplicate_III
         public void ContainsNearByAlmostDuplicate_Given_nums_minus1_2147483647_kIs1_tIs2147483647_Return_false()
         {
             //Assign
-            int[] nums = {-1,2147483647};
+            int[] nums = { -1, 2147483647 };
             int k = 1;
             int t = 2147483647;
             //Act
@@ -106,11 +106,11 @@ namespace TDD_Kata_Contains_Duplicate_III
         {
             if (k > 0)
             {
-                
-                for (int i = 0; i < nums.Length - 1; i++)
+                var numsInDouble = nums.Select(x => Convert.ToDouble(x)).ToArray();
+                for (int i = 0; i < numsInDouble.Length - 1; i++)
                 {
-                    int searchLength = k > nums.Length - 1 ? nums.Length - 1 : k;
-                    if (nums.Skip(i + 1).Take(searchLength).Any(element => Math.Abs(element - nums[i]) <= t))
+                    int searchLength = k > numsInDouble.Length - 1 ? numsInDouble.Length - 1 : k;
+                    if (numsInDouble.Skip(i + 1).Take(searchLength).Any(element => Math.Abs(element - numsInDouble[i]) <= t))
                         return true;
                 }
                 return false;

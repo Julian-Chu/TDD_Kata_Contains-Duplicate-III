@@ -25,6 +25,7 @@ namespace TDD_Kata_Contains_Duplicate_III
     {
         internal static bool ContainsNearbyAlmostDuplicate(int[] nums, int k, int t)
         {
+            if (k == 0) return false;
             throw new NotImplementedException();
         }
     }

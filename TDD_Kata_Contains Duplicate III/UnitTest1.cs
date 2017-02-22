@@ -39,6 +39,18 @@ namespace TDD_Kata_Contains_Duplicate_III
         internal static bool ContainsNearbyAlmostDuplicate(int[] nums, int k, int t)
         {
             if (k == 0) return false;
+            else
+            {
+                for (int i = 0; i < nums.Length-1; i++)
+                {
+                    for (int j = i+1; j < nums.Length; j++)
+                    {
+                        if (nums[i] - nums[j] == 0)
+                            return true;
+                    }
+                }
+                return false;
+            }
             throw new NotImplementedException();
         }
     }

@@ -69,7 +69,8 @@ namespace TDD_Kata_Contains_Duplicate_III
             {
                 for (int i = 0; i < nums.Length-1; i++)
                 {
-                    for (int j = i+1; j < nums.Length; j++)
+                    int searchLength = k > nums.Length -1 ? nums.Length -1 : k;
+                    for (int j = i+1; j <= searchLength; j++)
                     {
                         if (nums[i] - nums[j] == 0)
                             return true;

@@ -45,6 +45,19 @@ namespace TDD_Kata_Contains_Duplicate_III
             //Assert
             Assert.IsTrue(actual);
         }
+
+        [TestMethod]
+        public void ContainsNearByAlmostDuplicate_Given_nums_1_0_1_kIs1_tIs0_Return_false()
+        {
+            //Assign
+            int[] nums = { 1, 0, 1 };
+            int t = 0;
+            int k = 1;
+            //Act
+            bool actual = Solutions.ContainsNearbyAlmostDuplicate(nums, k, t);
+            //Assert
+            Assert.IsFalse(actual);
+        }
     }
 
     internal class Solutions

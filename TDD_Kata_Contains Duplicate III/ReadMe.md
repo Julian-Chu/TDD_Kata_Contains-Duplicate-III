@@ -1,4 +1,5 @@
-﻿# Leetcode:220. Contains Duplic
+﻿# Leetcode:220. Contains Duplicate III
+<a href="https://leetcode.com/problems/contains-duplicate-iii/?tab=Description">Link</a>
 <h3>Description</h3>
 <p>
 Given an array of integers, 

@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Linq;
+using System.Collections.Generic;
 
 namespace TDD_Kata_Contains_Duplicate_III
 {
@@ -98,20 +98,49 @@ namespace TDD_Kata_Contains_Duplicate_III
             //Assert
             Assert.IsFalse(actual);
         }
+
+        [TestMethod]
+        public void ContainsNearByAlmostDuplicate_Given_nums_2_1_kIs1_tIs1_Return_true()
+        {
+            //Assign
+            int[] nums = { 2, 1 };
+            int k = 1;
+            int t = 1;
+            //Act
+            bool actual = Solutions.ContainsNearbyAlmostDuplicate(nums, k, t);
+            //Assert
+            Assert.IsTrue(actual);
+        }
     }
 
     internal class Solutions
     {
         internal static bool ContainsNearbyAlmostDuplicate(int[] nums, int k, int t)
         {
-            if (k > 0)
+            if (k > 0 && t >= 0)
             {
-                var numsInDouble = nums.Select(x => Convert.ToDouble(x)).ToArray();
-                for (int i = 0; i < numsInDouble.Length - 1; i++)
+                Dictionary<long, long> dic = new Dictionary<long, long>();
+
+                for (int i = 0; i < nums.Length; i++)
                 {
-                    int searchLength = k > numsInDouble.Length - 1 ? numsInDouble.Length - 1 : k;
-                    if (numsInDouble.Skip(i + 1).Take(searchLength).Any(element => Math.Abs(element - numsInDouble[i]) <= t))
+                    long valueToAdd = Convert.ToInt64(nums[i]) - int.MinValue;
+                    long keyToAdd = valueToAdd / ((long)t + 1);
+
+                    if (i > k)
+                    {
+                        var valueToRemove = Convert.ToInt64(nums[i - k - 1]) - int.MinValue;
+                        long keyToRemove = valueToRemove / ((long)t + 1);
+                        dic.Remove(keyToRemove);
+                    }
+
+                    if (dic.ContainsKey(keyToAdd) ||
+                          dic.ContainsKey(keyToAdd - 1) && Math.Abs(dic[keyToAdd - 1] - valueToAdd) <= t ||
+                          dic.ContainsKey(keyToAdd + 1) && Math.Abs(dic[keyToAdd + 1] - valueToAdd) <= t
+                         )
+                    {
                         return true;
+                    }
+                    dic.Add(keyToAdd, valueToAdd);
                 }
                 return false;
             }
